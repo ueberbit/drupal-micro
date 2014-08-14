@@ -1,0 +1,160 @@
+<?php
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Render\Element;
+
+/**
+ * Implements hook_entity_bundle_info().
+ */
+function micro_entity_bundle_info() {
+  $bundles = array();
+  $config_names = \Drupal::configFactory()->listAll('micro.type.');
+  foreach ($config_names as $config_name) {
+    $config = \Drupal::config($config_name);
+    $bundles['micro'][$config->get('id')]['label'] = $config->get('label');
+  }
+  return $bundles;
+}
+
+/**
+ * Entity URI callback.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $micro
+ *   A micro entity.
+ *
+ * @return array
+ *   An array with 'path' as the key and the path to the micro as its value.
+ */
+function micro_uri(EntityInterface $micro) {
+  return array(
+    'path' => 'micro/' . $micro->id(),
+  );
+}
+
+/**
+ * Menu argument loader: Loads a node type by string.
+ *
+ * @param $name
+ *   The machine name of a node type to load.
+ *
+ * @return \Drupal\node\NodeTypeInterface
+ *   A node type object or NULL if $name does not exist.
+ */
+function micro_type_load($id) {
+  return entity_load('micro_type', $id);
+}
+
+/**
+ * Implements hook_permission().
+ */
+function micro_permission() {
+  $permissions['administer micro types'] = array(
+    'title' => t('Administer micro types'),
+    'description' => t('View, edit and delete all micro types.'),
+  );
+
+  $bundles = \Drupal::entityManager()->getBundleInfo('micro');
+  foreach ($bundles as $bundle => $bundle_info) {
+    $permissions['access micro admin overview, Type: ' . $bundle] = array(
+      'title' => t('Access micro admin overview - Type: @type', array('@type' => $bundle_info['label'])),
+    );
+
+    $permissions['administer micro - ' . $bundle . ' entity'] = array(
+      'title' => t('Administer Micro entity, Type: @type', array('@type' => $bundle_info['label'])),
+    );
+
+    $permissions['view micro - ' . $bundle . ' entity'] = array(
+      'title' => t('View Micro entity, Type: @type', array('@type' => $bundle_info['label'])),
+    );
+  }
+
+  $permissions['administer micro content'] = array(
+    'title' => t('Administer micro content'),
+    'description' => t('View, edit and delete all micro content.'),
+  );
+
+  return $permissions;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function micro_theme() {
+  return array(
+    'micro' => array(
+      'render element' => 'elements',
+      'template' => 'micro',
+    ),
+    'field__micro__title' => array(
+      'base hook' => 'field',
+    ),
+  );
+}
+
+
+/**
+ * Prepares variables for micro templates.
+ *
+ * Default template: micro.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - elements: An array of elements to display in view mode.
+ *   - node: The micro object.
+ *   - view_mode: View mode; e.g., 'full', 'teaser'...
+ */
+function template_preprocess_micro(&$variables) {
+  $variables['view_mode'] = $variables['elements']['#view_mode'];
+  // Provide a distinct $teaser boolean.
+  $variables['teaser'] = $variables['view_mode'] == 'teaser';
+  $variables['micro'] = $variables['elements']['#micro'];
+
+  $variables['label'] = $variables['elements']['title'];
+  unset($variables['elements']['title']);
+
+  // Helpful $content variable for templates.
+  $variables += array('content' => array());
+  foreach (Element::children($variables['elements']) as $key) {
+    $variables['content'][$key] = $variables['elements'][$key];
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function micro_theme_suggestions_micro(array $variables) {
+  $suggestions = array();
+  $micro = $variables['elements']['#micro'];
+
+  $suggestions[] = 'micro__' . $micro->bundle();
+  $suggestions[] = 'micro__' . $micro->bundle() . '__' . $variables['elements']['#view_mode'];
+
+  return $suggestions;
+}
+
+/**
+ * Returns HTML for the micro title field.
+ *
+ * This is an override of theme_field() for the micro title field. See that
+ * function for documentation about its details and overrides.
+ *
+ * @param array $variables
+ *   An associative array. See theme_field() for details.
+ *
+ * @see theme_field()
+ *
+ * @ingroup themeable
+ */
+function theme_field__micro__title($variables) {
+  return drupal_render($variables['items']);
+}
+
+/**
+ * Implements hook_entity_type_alter().
+ */
+function micro_entity_type_alter(&$entity_types) {
+  /**
+   * @var \Drupal\Core\Entity\EntityType[] $entity_types
+   */
+  $entity_types['micro']->setFormClass('inline entity form', '\Drupal\micro\Plugin\InlineEntityForm\MicroInlineEntityFormController');
+}

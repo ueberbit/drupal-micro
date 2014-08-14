@@ -1,0 +1,8 @@
+name: Micro
+type: module
+description: 'Micro entity'
+package: Micro
+version: VERSION
+core: 8.x
+dependencies:
+  - entity_views

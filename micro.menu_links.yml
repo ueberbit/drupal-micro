@@ -1,0 +1,6 @@
+micro.admin_structure:
+  title: Micro types
+  description: Create and edit micro types.
+  route_name: micro.type_list
+  parent: system.admin_structure
+

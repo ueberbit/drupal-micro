@@ -1,0 +1,10 @@
+micro.page_edit:
+  route_name: micro.page_edit
+  group: micro
+  title: Edit
+
+micro.delete_confirm:
+  route_name: micro.delete_confirm
+  group: micro
+  title: Delete
+  weight: 10

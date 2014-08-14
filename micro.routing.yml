@@ -1,0 +1,58 @@
+micro.type_list:
+  path: '/admin/structure/micro'
+  defaults:
+    _entity_list: 'micro_type'
+    _title: 'Micro types'
+  requirements:
+    _permission: 'administer micro types'
+
+micro.type_add:
+  path: '/admin/structure/micro/add'
+  defaults:
+    _entity_form: 'micro_type.add'
+  requirements:
+    _permission: 'administer micro types'
+
+micro.type_edit:
+  path: '/admin/structure/micro/manage/{micro_type}'
+  defaults:
+    _entity_form: 'micro_type.edit'
+  requirements:
+    _permission: 'administer micro types'
+
+micro.type_delete_confirm:
+  path: '/admin/structure/micro/manage/{micro_type}/delete'
+  defaults:
+    _entity_form: 'micro_type.delete'
+    _title: 'Delete'
+  requirements:
+    _entity_access: 'micro_type.delete'
+
+micro.add:
+  path: '/micro/add/{micro_type}'
+  defaults:
+    _content: '\Drupal\micro\Controller\MicroController::add'
+    _title_callback: '\Drupal\micro\Controller\MicroController::addPageTitle'
+  requirements:
+    _micro_add_access: 'micro:{micro_type}'
+
+micro.view:
+  path: '/micro/{micro}'
+  defaults:
+    _content: '\Drupal\micro\Controller\MicroController::page'
+  requirements:
+    _entity_access: 'micro.view'
+
+micro.page_edit:
+  path: '/micro/{micro}/edit'
+  defaults:
+    _entity_form: 'micro.edit'
+  requirements:
+    _entity_access: 'micro.edit'
+
+micro.delete_confirm:
+  path: '/micro/{micro}/delete'
+  defaults:
+    _entity_form: 'micro.delete'
+  requirements:
+    _permission: 'administer micro content'
