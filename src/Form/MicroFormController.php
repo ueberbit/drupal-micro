@@ -7,9 +7,10 @@
 
 namespace Drupal\micro\Form;
 
-use Drupal\Core\Entity\ContentEntityFormController;
+use Drupal\Core\Entity\ContentEntityForm;
+use Drupal\Core\Form\FormStateInterface;
 
-class MicroFormController extends ContentEntityFormController {
+class MicroFormController extends ContentEntityForm {
 
   public function save(array $form, array &$form_state) {
     $micro = $this->entity;
@@ -19,7 +20,7 @@ class MicroFormController extends ContentEntityFormController {
   /**
    * Overrides Drupal\Core\Entity\EntityFormController::actions().
    */
-  protected function actions(array $form, array &$form_state) {
+  protected function actions(array $form, FormStateInterface $form_state) {
     $element = parent::actions($form, $form_state);
     $element['delete']['#access'] = $this->entity->access('delete');
     $element['delete']['#weight'] = 100;
@@ -29,21 +30,16 @@ class MicroFormController extends ContentEntityFormController {
   /**
    * Overrides Drupal\Core\Entity\EntityFormController::delete().
    */
-  public function delete(array $form, array &$form_state) {
+  public function delete(array $form, FormStateInterface $form_state) {
     $destination = array();
     $query = \Drupal::request()->query;
     if ($query->has('destination')) {
       $destination = drupal_get_destination();
       $query->remove('destination');
     }
-    $form_state['redirect_route'] = array(
-      'route_name' => 'micro.delete_confirm',
-      'route_parameters' => array(
-        'micro' => $this->entity->id(),
-      ),
-      'options' => array(
-        'query' => $destination,
-      ),
+    $form_state->setRedirect('micro.delete_confirm',
+      array('micro' => $this->entity->id()),
+      array('query' => $destination)
     );
   }
 

@@ -10,6 +10,7 @@ namespace Drupal\micro\Form;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Entity\ContentEntityConfirmFormBase;
 use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\UrlGeneratorInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -58,7 +59,7 @@ class MicroDeleteForm extends ContentEntityConfirmFormBase {
   /**
    * {@inheritdoc}
    */
-  protected function actions(array $form, array &$form_state) {
+  protected function actions(array $form, FormStateInterface $form_state) {
     $actions = parent::actions($form, $form_state);
 
     // @todo Convert to getCancelRoute() after http://drupal.org/micro/1987778.
@@ -84,14 +85,20 @@ class MicroDeleteForm extends ContentEntityConfirmFormBase {
   /**
    * {@inheritdoc}
    */
-  public function submit(array $form, array &$form_state) {
+  public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->entity->delete();
     watchdog('content', '@type: deleted %title.', array('@type' => $this->entity->bundle(), '%title' => $this->entity->label()));
     $micro_type_storage = $this->entityManager->getStorage('micro_type');
     $micro_type = $micro_type_storage->load($this->entity->bundle())->label();
     drupal_set_message(t('@type %title has been deleted.', array('@type' => $micro_type, '%title' => $this->entity->label())));
     Cache::invalidateTags(array('content' => TRUE));
-    $form_state['redirect_route']['route_name'] = '<front>';
+    $form_state->setRedirect('<front>');
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getCancelUrl() {
+    return new Url('micro.type_list');
+  }
 }

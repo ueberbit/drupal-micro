@@ -7,15 +7,16 @@
 
 namespace Drupal\micro\Form;
 
-use Drupal\Core\Entity\EntityFormController;
+use Drupal\Core\Entity\EntityForm;
 use Drupal\Component\Utility\String;
+use Drupal\Core\Form\FormStateInterface;
 
-class MicroTypeFormController extends EntityFormController {
+class MicroTypeFormController extends EntityForm {
 
   /**
    * {@inheritdoc}
    */
-  public function form(array $form, array &$form_state) {
+  public function form(array $form, FormStateInterface $form_state) {
     $form = parent::form($form, $form_state);
 
     $type = $this->entity;
@@ -67,7 +68,7 @@ class MicroTypeFormController extends EntityFormController {
     return $form;
   }
 
-  public function save(array $form, array &$form_state) {
+  public function save(array $form, FormStateInterface $form_state) {
     /**
      * @var \Drupal\micro\Entity\MicroType
      */
@@ -75,7 +76,7 @@ class MicroTypeFormController extends EntityFormController {
     $type->id = trim($type->type);
     $type->label = trim($type->label);
 
-    $variables = $form_state['values'];
+    $variables = $form_state->getValues();
 
     // Do not save settings from vertical tabs.
     // @todo Fix vertical_tabs.
@@ -90,10 +91,10 @@ class MicroTypeFormController extends EntityFormController {
     }
     elseif ($status == SAVED_NEW) {
       drupal_set_message(t('The micro type %name has been added.', $t_args));
-      watchdog('micro', 'Added micro type %name.', $t_args, WATCHDOG_NOTICE, l(t('view'), 'admin/structure/micro'));
+      watchdog('micro', 'Added micro type %name.', $t_args, WATCHDOG_NOTICE, l($this->t('view'), 'admin/structure/micro'));
     }
 
-    $form_state['redirect'] = 'admin/structure/micro';
+    $form_state->setRedirectUrl('admin/structure/micro');
   }
 
 
