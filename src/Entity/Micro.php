@@ -133,7 +133,7 @@ class Micro extends ContentEntityBase {
    * {@inheritdoc}
    */
   public static function bundleFieldDefinitions(EntityTypeInterface $entity_type, $bundle, array $base_field_definitions) {
-    $micro_type = micro_type_load($bundle);
+    $micro_type = MicroType::load($bundle);
     $fields = array();
     if (isset($micro_type->title_label)) {
       $fields['title'] = clone $base_field_definitions['title'];
