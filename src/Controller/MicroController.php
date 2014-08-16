@@ -8,25 +8,36 @@
 namespace Drupal\micro\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\Core\Entity\EntityInterface;
 use Drupal\micro\Entity\Micro;
 use Drupal\micro\Entity\MicroType;
 
+/**
+ * Provides a couple of controllers for the micro module.
+ */
 class MicroController extends ControllerBase {
 
-  public function add(EntityInterface $micro_type) {
-    $user = \Drupal::currentUser();
+  /**
+   * Provides an add form for a micro entity of a specific type.
+   *
+   * @param \Drupal\micro\Entity\MicroType $micro_type
+   *   The micro type to add a micro entity for.
+   *
+   * @return array
+   *   An array suitable for drupal_render().
+   */
+  public function add(MicroType $micro_type) {
+    $user = $this->currentUser();
 
     $type = $micro_type->id;
     $langcode = $this->moduleHandler()->invoke('language', 'get_default_langcode', array('micro', $type));
 
-    $micro = entity_create('micro', array(
+    $micro = Micro::create([
       'uid' => $user->id(),
       'name' => $user->getUsername(),
       'bundle' => $type,
       'type' => $type,
       'langcode' => $langcode ? $langcode : language_default()->id,
-    ));
+    ]);
 
     $form = $this->entityFormBuilder()->getForm($micro);
     return $form;
@@ -34,7 +45,7 @@ class MicroController extends ControllerBase {
 
 
   /**
-   * Displays a micro enitty.
+   * Displays a micro entity.
    *
    * @param \Drupal\micro\Entity\Micro $micro
    *   The micro we are displaying.
@@ -70,7 +81,7 @@ class MicroController extends ControllerBase {
    *   The page title.
    */
   public function addPageTitle(MicroType $micro_type) {
-    return $this->t('Create @name', array('@name' => $micro_type->label()));
+    return $this->t('Create @name', ['@name' => $micro_type->label()]);
   }
 
 }
