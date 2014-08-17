@@ -12,13 +12,16 @@ use Drupal\Core\Form\FormStateInterface;
 
 class MicroFormController extends ContentEntityForm {
 
-  public function save(array $form, array &$form_state) {
+  /**
+   * {@inheritdoc}
+   */
+  public function save(array $form, FormStateInterface $form_state) {
     $micro = $this->entity;
     $micro->save();
   }
 
   /**
-   * Overrides Drupal\Core\Entity\EntityFormController::actions().
+   * {@inheritdoc}
    */
   protected function actions(array $form, FormStateInterface $form_state) {
     $element = parent::actions($form, $form_state);
@@ -28,7 +31,7 @@ class MicroFormController extends ContentEntityForm {
   }
 
   /**
-   * Overrides Drupal\Core\Entity\EntityFormController::delete().
+   * {@inheritdoc}
    */
   public function delete(array $form, FormStateInterface $form_state) {
     $destination = array();

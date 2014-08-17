@@ -11,7 +11,7 @@ use Drupal\Core\Cache\Cache;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\Core\Field\FieldDefinition;
+use Drupal\Core\Field\BaseFieldDefinition;
 
 /**
  * Defines the micro entity.
@@ -80,48 +80,47 @@ class Micro extends ContentEntityBase {
    * {@inheritdoc}
    */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
-    $fields['mid'] = FieldDefinition::create('integer')
+    $fields['mid'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('Micro ID'))
       ->setDescription(t('The micro entity ID.'))
       ->setReadOnly(TRUE);
 
-    $fields['uuid'] = FieldDefinition::create('uuid')
+    $fields['uuid'] = BaseFieldDefinition::create('uuid')
       ->setLabel(t('UUID'))
       ->setDescription(t('The micro UUID.'))
       ->setReadOnly(TRUE);
 
-    $fields['type'] = FieldDefinition::create('entity_reference')
+    $fields['type'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Type'))
       ->setDescription(t('The micro type.'))
       ->setSetting('target_type', 'micro_type')
       ->setReadOnly(TRUE);
 
-    $fields['langcode'] = FieldDefinition::create('language')
+    $fields['langcode'] = BaseFieldDefinition::create('language')
       ->setLabel(t('Language code'))
       ->setDescription(t('The micro language code.'));
 
-    $fields['title'] = FieldDefinition::create('text')
+    $fields['title'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Title'))
-//      ->setDescription(t('The title.'))
+      ->setDescription(t('The title of this micro, always treated as non-markup plain text.'))
       ->setRequired(TRUE)
       ->setTranslatable(TRUE)
-      ->setSettings(array(
-        'default_value' => '',
-        'max_length' => 255,
-        'text_processing' => 0,
-      ))
+      ->setRevisionable(TRUE)
+      ->setDefaultValue('')
+      ->setSetting('max_length', 255)
       ->setDisplayOptions('view', array(
         'label' => 'hidden',
-        'type' => 'text_default',
+        'type' => 'string',
         'weight' => -5,
       ))
       ->setDisplayOptions('form', array(
-        'type' => 'text_textfield',
+        'type' => 'string',
         'weight' => -5,
       ))
       ->setDisplayConfigurable('form', TRUE);
 
-    $fields['changed'] = FieldDefinition::create('integer')
+
+    $fields['changed'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('Changed'))
       ->setDescription(t('The time that the micro entity was last edited.'))
       ->setPropertyConstraints('value', array('EntityChanged' => array()));

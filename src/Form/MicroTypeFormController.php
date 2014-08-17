@@ -27,10 +27,10 @@ class MicroTypeFormController extends EntityForm {
       $form['#title'] = $this->t('Edit %label micro type', array('%label' => $type->label()));
     }
 
-    $form['label'] = array(
-      '#title' => t('Label'),
+    $form['name'] = array(
+      '#title' => t('Name'),
       '#type' => 'textfield',
-      '#default_value' => $type->label,
+      '#default_value' => $type->name,
       '#description' => t('The human-readable name of this micro type. This text will be displayed as part of the list on the <em>Add new micro</em> page. It is recommended that this name begin with a capital letter and contain only letters, numbers, and spaces. This name must be unique.'),
       '#required' => TRUE,
       '#size' => 30,
@@ -42,7 +42,7 @@ class MicroTypeFormController extends EntityForm {
       '#maxlength' => 32,
       '#machine_name' => array(
         'exists' =>  ['Drupal\micro\Entity\Micro', 'load'],
-        'source' => array('label'),
+        'source' => array('name'),
       ),
       '#description' => t('A unique machine-readable name for this micro type. It must only contain lowercase letters, numbers, and underscores. This name will be used for constructing the URL of the %micro-add page, in which underscores will be converted into hyphens.', array(
         '%micro-add' => t('Add new micro type'),
@@ -74,7 +74,7 @@ class MicroTypeFormController extends EntityForm {
      */
     $type = $this->entity;
     $type->id = trim($type->type);
-    $type->label = trim($type->label);
+    $type->name = trim($type->name);
 
     $variables = $form_state->getValues();
 
@@ -84,7 +84,7 @@ class MicroTypeFormController extends EntityForm {
 
     $status = $type->save();
 
-    $t_args = array('%name' => $type->label());
+    $t_args = array('%name' => $type->name);
 
     if ($status == SAVED_UPDATED) {
       drupal_set_message(t('The micro type %name has been updated.', $t_args));
@@ -94,7 +94,7 @@ class MicroTypeFormController extends EntityForm {
       watchdog('micro', 'Added micro type %name.', $t_args, WATCHDOG_NOTICE, l($this->t('view'), 'admin/structure/micro'));
     }
 
-    $form_state->setRedirectUrl(new \Drupal\Core\Url('micro.add', ['micro_type' => $type->id]));
+    $form_state->setRedirectUrl(new \Drupal\Core\Url('micro.type_list'));
   }
 
 

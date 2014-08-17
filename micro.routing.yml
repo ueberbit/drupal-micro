@@ -34,7 +34,7 @@ micro.add:
     _content: '\Drupal\micro\Controller\MicroController::add'
     _title_callback: '\Drupal\micro\Controller\MicroController::addPageTitle'
   requirements:
-    _micro_add_access: 'micro:{micro_type}'
+    _entity_create_access: 'micro:{micro_type}'
 
 micro.view:
   path: '/micro/{micro}'

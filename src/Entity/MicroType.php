@@ -29,7 +29,7 @@ use Drupal\Core\Annotation\Translation;
  *   bundle_of = "micro",
  *   entity_keys = {
  *     "id" = "id",
- *     "label" = "label",
+ *     "label" = "name",
  *     "uuid" = "uuid"
  *   },
  *   links = {
@@ -54,11 +54,11 @@ class MicroType extends ConfigEntityBase {
   public $uuid;
 
   /**
-   * The bundle label.
+   * The bundle name.
    *
    * @var string
    */
-  public $label;
+  public $name;
 
   /**
    * Implements Drupal\Core\Entity\EntityInterface::id().
