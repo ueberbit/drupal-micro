@@ -94,7 +94,7 @@ class MicroTypeFormController extends EntityForm {
       watchdog('micro', 'Added micro type %name.', $t_args, WATCHDOG_NOTICE, l($this->t('view'), 'admin/structure/micro'));
     }
 
-    $form_state->setRedirectUrl('admin/structure/micro');
+    $form_state->setRedirectUrl(new \Drupal\Core\Url('micro.add', ['micro_type' => $type->id]));
   }
 
 
