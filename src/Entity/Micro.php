@@ -16,7 +16,7 @@ use Drupal\Core\Field\BaseFieldDefinition;
 /**
  * Defines the micro entity.
  *
- * @EntityType(
+ * @ContentEntityType(
  *   id = "micro",
  *   label = @Translation("Micro"),
  *   bundle_label = @Translation("Micro type"),
