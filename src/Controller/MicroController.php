@@ -36,7 +36,9 @@ class MicroController extends ControllerBase {
       'name' => $user->getUsername(),
       'bundle' => $type,
       'type' => $type,
-      'langcode' => $langcode ? $langcode : language_default()->id,
+      // @todo The form code should already handle that, test whether this is
+      //   is still needed.
+      'langcode' => $langcode ? $langcode : \Drupal::languageManager()->getDefaultLanguage()->getId(),
     ]);
 
     $form = $this->entityFormBuilder()->getForm($micro);
