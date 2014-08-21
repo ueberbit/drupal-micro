@@ -30,6 +30,7 @@ use Drupal\Core\Field\BaseFieldDefinition;
  *       "delete" = "Drupal\micro\Form\MicroDeleteForm"
  *     },
  *     "access" = "Drupal\micro\MicroEntityAccessControlHandler",
+ *     "views_data" = "Drupal\micro\MicroViewsData",
  *     "view_builder" = "Drupal\micro\Entity\MicroViewBuilder"
  *   },
  *   admin_permission = "administer micro entity",
