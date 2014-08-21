@@ -29,7 +29,7 @@ use Drupal\Core\Field\BaseFieldDefinition;
  *       "edit" = "Drupal\micro\Form\MicroFormController",
  *       "delete" = "Drupal\micro\Form\MicroDeleteForm"
  *     },
- *     "access" = "Drupal\micro\MicroEntityAccessController",
+ *     "access" = "Drupal\micro\MicroEntityAccessControlHandler",
  *     "view_builder" = "Drupal\micro\Entity\MicroViewBuilder"
  *   },
  *   admin_permission = "administer micro entity",
