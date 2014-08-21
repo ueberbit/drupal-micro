@@ -55,10 +55,9 @@ class Micro extends WizardPluginBase {
     // Remove the default fields, since we are customizing them here.
     unset($display_options['fields']);
 
-    /* Field: User: Name */
-    $display_options['fields']['name']['id'] = 'name';
+    $display_options['fields']['name']['id'] = 'title';
     $display_options['fields']['name']['table'] = 'micro';
-    $display_options['fields']['name']['field'] = 'name';
+    $display_options['fields']['name']['field'] = 'title';
     $display_options['fields']['name']['provider'] = 'micro';
     $display_options['fields']['name']['label'] = '';
     $display_options['fields']['name']['alter']['alter_text'] = 0;
