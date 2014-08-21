@@ -50,10 +50,10 @@ use Drupal\Core\Field\BaseFieldDefinition;
  *   bundle_entity_type = "micro_type",
  *   permission_granularity = "bundle",
  *   links = {
- *     "canonical" = "micro.view",
- *     "edit-form" = "micro.page_edit",
- *     "delete-form" = "micro.delete_confirm",
- *     "admin-form" = "micro.type_edit"
+ *     "canonical" = "entity.micro.canonical",
+ *     "edit-form" = "entity.micro.edit_form",
+ *     "delete-form" = "entity.micro.delete_form",
+ *     "admin-form" = "entity.micro.admin_form"
  *   }
  * )
  */

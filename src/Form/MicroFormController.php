@@ -40,7 +40,7 @@ class MicroFormController extends ContentEntityForm {
       $destination = drupal_get_destination();
       $query->remove('destination');
     }
-    $form_state->setRedirect('micro.delete_confirm',
+    $form_state->setRedirect('entity.micro.delete_form',
       array('micro' => $this->entity->id()),
       array('query' => $destination)
     );
