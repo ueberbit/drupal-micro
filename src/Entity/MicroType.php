@@ -16,7 +16,7 @@ use Drupal\Core\Annotation\Translation;
  * @ConfigEntityType(
  *   id = "micro_type",
  *   label = @Translation("Micro type"),
- *   controllers = {
+ *   handlers = {
  *     "list" = "Drupal\micro\Controller\MicroTypeListController",
  *     "form" = {
  *       "add" = "Drupal\micro\Form\MicroTypeFormController",
