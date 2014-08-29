@@ -67,8 +67,14 @@ class MicroViewsData implements EntityViewsDataInterface {
       */
     );
 
+    $data['micro_field_data']['table']['group']  = t('Micro');
+    $data['micro_field_data']['table']['join']['micro'] = [
+      'left_field' => 'mid',
+      'field' => 'mid',
+    ];
+
     // Term title field
-    $data['micro']['title'] = array(
+    $data['micro_field_data']['title'] = array(
       'title' => t('Title'),
       'help' => t('The micro title.'),
       'field' => array(
@@ -89,7 +95,7 @@ class MicroViewsData implements EntityViewsDataInterface {
       ),
     );
 
-    $data['micro']['changed'] = array(
+    $data['micro_field_data']['changed'] = array(
       'title' => t('Updated date'),
       'help' => t('The date the content was last updated.'),
       'field' => array(
