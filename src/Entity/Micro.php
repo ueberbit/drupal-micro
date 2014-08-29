@@ -21,7 +21,7 @@ use Drupal\Core\Field\BaseFieldDefinition;
  *   label = @Translation("Micro"),
  *   bundle_label = @Translation("Micro type"),
  *   module = "micro",
- *   controllers = {
+ *   handlers = {
  *     "storage" = "\Drupal\Core\Entity\ContentEntityDatabaseStorage",
  *     "form" = {
  *       "default" = "Drupal\micro\Form\MicroFormController",
@@ -35,6 +35,7 @@ use Drupal\Core\Field\BaseFieldDefinition;
  *   },
  *   admin_permission = "administer micro entity",
  *   base_table = "micro",
+ *   data_table = "micro_field_data",
  *   uri_callback = "micro_uri",
  *   fieldable = TRUE,
  *   translatable = TRUE,
@@ -50,6 +51,7 @@ use Drupal\Core\Field\BaseFieldDefinition;
  *   },
  *   bundle_entity_type = "micro_type",
  *   permission_granularity = "bundle",
+ *   field_ui_base_route = "entity.micro.admin_form",
  *   links = {
  *     "canonical" = "entity.micro.canonical",
  *     "edit-form" = "entity.micro.edit_form",
