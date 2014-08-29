@@ -1,5 +1,6 @@
 <?php
 
+use Drupal\Component\Utility\Xss;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Render\Element;
 
@@ -75,6 +76,10 @@ function micro_theme() {
     'field__micro__title' => array(
       'base hook' => 'field',
     ),
+    'micro_add_list' => [
+      'variables' => ['micro' => NULL],
+      'template' => 'micro-add-list',
+    ],
   );
 }
 
@@ -144,4 +149,25 @@ function micro_entity_type_alter(&$entity_types) {
    * @var \Drupal\Core\Entity\EntityType[] $entity_types
    */
   $entity_types['micro']->setFormClass('inline entity form', '\Drupal\micro\Plugin\InlineEntityForm\MicroInlineEntityFormController');
+}
+
+/**
+ * Prepares variables for list of available micro type templates.
+ *
+ * Default template: micro-add-list.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - content: An array of micro types.
+ */
+function template_preprocess_micro_add_list(&$variables) {
+  $variables['types'] = array();
+  if (!empty($variables['micro'])) {
+    foreach ($variables['micro'] as $type) {
+      $variables['types'][$type->type] = array(
+        'type' => $type->type,
+        'add_link' => \Drupal::l($type->name, 'micro.add', ['micro_type' => $type->type]),
+      );
+    }
+  }
 }

@@ -36,6 +36,14 @@ micro.add:
   requirements:
     _entity_create_access: 'micro:{micro_type}'
 
+micro.add_page:
+  path: '/micro/add'
+  defaults:
+    _content: '\Drupal\micro\Controller\MicroController::addPage'
+    _title: 'Add new micro content'
+  requirements:
+    _micro_add_access: 'TRUE'
+
 entity.micro.canonical:
   path: '/micro/{micro}'
   defaults:

@@ -1,7 +1,6 @@
-#services:
-#  access_check.micro.add:
-#    class: Drupal\micro\Access\MicroAddAccessCheck
-#    arguments: ['@entity.manager']
-#    tags:
-#      - { name: access_check, applies_to: _micro_add_access }
-#
+services:
+  access_check.micro.add:
+    class: Drupal\micro\Access\MicroAddAccessCheck
+    arguments: ['@entity.manager']
+    tags:
+      - { name: access_check, applies_to: _micro_add_access }

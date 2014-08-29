@@ -45,6 +45,32 @@ class MicroController extends ControllerBase {
     return $form;
   }
 
+  /**
+   * Displays add micro links for available micro types.
+   *
+   * @return array
+   *   An array suitable for drupal_render().
+   */
+  public function addPage() {
+    $micro_types = [];
+    // Only use micro types the user has access to.
+    foreach ($this->entityManager()->getStorage('micro_type')->loadMultiple() as $type) {
+      if ($this->entityManager()->getAccessControlHandler('micro')->createAccess($type->type)) {
+        $micro_types[$type->type] = $type;
+      }
+    }
+
+    // Bypass the node/add listing if only one content type is available.
+    if (count($micro_types) == 1) {
+      $type = array_shift($content);
+      return $this->redirect('micro.add', ['micro_type' => $type->type]);
+    }
+
+    return [
+      '#theme' => 'micro_add_list',
+      '#micro' => $micro_types,
+    ];
+  }
 
   /**
    * Displays a micro entity.
