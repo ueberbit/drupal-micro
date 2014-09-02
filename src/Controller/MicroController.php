@@ -62,7 +62,7 @@ class MicroController extends ControllerBase {
 
     // Bypass the node/add listing if only one content type is available.
     if (count($micro_types) == 1) {
-      $type = array_shift($content);
+      $type = array_shift($micro_types);
       return $this->redirect('micro.add', ['micro_type' => $type->type]);
     }
 
