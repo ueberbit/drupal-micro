@@ -1,0 +1,10 @@
+entity.micro.edit_form:
+  route_name: entity.micro.edit_form
+  group: micro
+  title: Edit
+
+entity.micro.delete_form:
+  route_name: entity.micro.delete_form
+  group: micro
+  title: Delete
+  weight: 10

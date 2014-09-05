@@ -39,12 +39,12 @@ class MicroAddAccessCheck implements AccessInterface {
    * {@inheritdoc}
    */
   public function access(Route $route, Request $request, AccountInterface $account) {
-    $access_controller = $this->entityManager->getAccessController('micro');
+    $access_controller = $this->entityManager->getAccessControlHandler('micro');
     // If a micro type is set on the request, just check that.
     if ($request->attributes->has('micro_type')) {
       return $access_controller->createAccess($request->attributes->get('micro_type')->id, $account) ? static::ALLOW : static::DENY;
     }
-    foreach (\Drupal::entityManager()->getBundleInfo('micro') as $bundle => $info) {
+    foreach ($this->entityManager->getBundleInfo('micro') as $bundle => $info) {
       if ($access_controller->createAccess($bundle, $account)) {
         // Allow access if at least one type is permitted.
         return static::ALLOW;

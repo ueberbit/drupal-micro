@@ -11,17 +11,17 @@ use Drupal\Core\Cache\Cache;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\Core\Field\FieldDefinition;
+use Drupal\Core\Field\BaseFieldDefinition;
 
 /**
  * Defines the micro entity.
  *
- * @EntityType(
+ * @ContentEntityType(
  *   id = "micro",
  *   label = @Translation("Micro"),
  *   bundle_label = @Translation("Micro type"),
  *   module = "micro",
- *   controllers = {
+ *   handlers = {
  *     "storage" = "\Drupal\Core\Entity\ContentEntityDatabaseStorage",
  *     "form" = {
  *       "default" = "Drupal\micro\Form\MicroFormController",
@@ -29,11 +29,13 @@ use Drupal\Core\Field\FieldDefinition;
  *       "edit" = "Drupal\micro\Form\MicroFormController",
  *       "delete" = "Drupal\micro\Form\MicroDeleteForm"
  *     },
- *     "access" = "Drupal\micro\MicroEntityAccessController",
+ *     "access" = "Drupal\micro\MicroEntityAccessControlHandler",
+ *     "views_data" = "Drupal\micro\MicroViewsData",
  *     "view_builder" = "Drupal\micro\Entity\MicroViewBuilder"
  *   },
  *   admin_permission = "administer micro entity",
  *   base_table = "micro",
+ *   data_table = "micro_field_data",
  *   uri_callback = "micro_uri",
  *   fieldable = TRUE,
  *   translatable = TRUE,
@@ -49,11 +51,12 @@ use Drupal\Core\Field\FieldDefinition;
  *   },
  *   bundle_entity_type = "micro_type",
  *   permission_granularity = "bundle",
+ *   field_ui_base_route = "entity.micro.admin_form",
  *   links = {
- *     "canonical" = "micro.view",
- *     "edit-form" = "micro.page_edit",
- *     "delete-form" = "micro.delete_confirm",
- *     "admin-form" = "micro.type_edit"
+ *     "canonical" = "entity.micro.canonical",
+ *     "edit-form" = "entity.micro.edit_form",
+ *     "delete-form" = "entity.micro.delete_form",
+ *     "admin-form" = "entity.micro.admin_form"
  *   }
  * )
  */
@@ -80,48 +83,47 @@ class Micro extends ContentEntityBase {
    * {@inheritdoc}
    */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
-    $fields['mid'] = FieldDefinition::create('integer')
+    $fields['mid'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('Micro ID'))
       ->setDescription(t('The micro entity ID.'))
       ->setReadOnly(TRUE);
 
-    $fields['uuid'] = FieldDefinition::create('uuid')
+    $fields['uuid'] = BaseFieldDefinition::create('uuid')
       ->setLabel(t('UUID'))
       ->setDescription(t('The micro UUID.'))
       ->setReadOnly(TRUE);
 
-    $fields['type'] = FieldDefinition::create('entity_reference')
+    $fields['type'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Type'))
       ->setDescription(t('The micro type.'))
       ->setSetting('target_type', 'micro_type')
       ->setReadOnly(TRUE);
 
-    $fields['langcode'] = FieldDefinition::create('language')
+    $fields['langcode'] = BaseFieldDefinition::create('language')
       ->setLabel(t('Language code'))
       ->setDescription(t('The micro language code.'));
 
-    $fields['title'] = FieldDefinition::create('text')
+    $fields['title'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Title'))
-//      ->setDescription(t('The title.'))
+      ->setDescription(t('The title of this micro, always treated as non-markup plain text.'))
       ->setRequired(TRUE)
       ->setTranslatable(TRUE)
-      ->setSettings(array(
-        'default_value' => '',
-        'max_length' => 255,
-        'text_processing' => 0,
-      ))
+      ->setRevisionable(TRUE)
+      ->setDefaultValue('')
+      ->setSetting('max_length', 255)
       ->setDisplayOptions('view', array(
         'label' => 'hidden',
-        'type' => 'text_default',
+        'type' => 'string',
         'weight' => -5,
       ))
       ->setDisplayOptions('form', array(
-        'type' => 'text_textfield',
+        'type' => 'string',
         'weight' => -5,
       ))
       ->setDisplayConfigurable('form', TRUE);
 
-    $fields['changed'] = FieldDefinition::create('integer')
+
+    $fields['changed'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('Changed'))
       ->setDescription(t('The time that the micro entity was last edited.'))
       ->setPropertyConstraints('value', array('EntityChanged' => array()));
@@ -133,7 +135,7 @@ class Micro extends ContentEntityBase {
    * {@inheritdoc}
    */
   public static function bundleFieldDefinitions(EntityTypeInterface $entity_type, $bundle, array $base_field_definitions) {
-    $micro_type = micro_type_load($bundle);
+    $micro_type = MicroType::load($bundle);
     $fields = array();
     if (isset($micro_type->title_label)) {
       $fields['title'] = clone $base_field_definitions['title'];
@@ -156,13 +158,19 @@ class Micro extends ContentEntityBase {
     return $this->changed->value;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   protected static function invalidateTagsOnDelete(array $entities) {
-    parent::invalidateTagsOnDelete($entities); // TODO: Change the autogenerated stub
+    parent::invalidateTagsOnDelete($entities);
     static::doInvalideCache();
   }
 
+  /**
+   * {@inheritdoc}
+   */
   protected function invalidateTagsOnSave($update) {
-    parent::invalidateTagsOnSave($update); // TODO: Change the autogenerated stub
+    parent::invalidateTagsOnSave($update);
     static::doInvalideCache();
   }
 

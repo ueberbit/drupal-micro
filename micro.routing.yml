@@ -13,7 +13,7 @@ micro.type_add:
   requirements:
     _permission: 'administer micro types'
 
-micro.type_edit:
+entity.micro.admin_form:
   path: '/admin/structure/micro/manage/{micro_type}'
   defaults:
     _entity_form: 'micro_type.edit'
@@ -34,23 +34,31 @@ micro.add:
     _content: '\Drupal\micro\Controller\MicroController::add'
     _title_callback: '\Drupal\micro\Controller\MicroController::addPageTitle'
   requirements:
-    _micro_add_access: 'micro:{micro_type}'
+    _entity_create_access: 'micro:{micro_type}'
 
-micro.view:
+micro.add_page:
+  path: '/micro/add'
+  defaults:
+    _content: '\Drupal\micro\Controller\MicroController::addPage'
+    _title: 'Add new micro content'
+  requirements:
+    _micro_add_access: 'TRUE'
+
+entity.micro.canonical:
   path: '/micro/{micro}'
   defaults:
     _content: '\Drupal\micro\Controller\MicroController::page'
   requirements:
     _entity_access: 'micro.view'
 
-micro.page_edit:
+entity.micro.edit_form:
   path: '/micro/{micro}/edit'
   defaults:
     _entity_form: 'micro.edit'
   requirements:
     _entity_access: 'micro.edit'
 
-micro.delete_confirm:
+entity.micro.delete_form:
   path: '/micro/{micro}/delete'
   defaults:
     _entity_form: 'micro.delete'

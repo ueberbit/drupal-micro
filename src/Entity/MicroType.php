@@ -16,7 +16,7 @@ use Drupal\Core\Annotation\Translation;
  * @ConfigEntityType(
  *   id = "micro_type",
  *   label = @Translation("Micro type"),
- *   controllers = {
+ *   handlers = {
  *     "list" = "Drupal\micro\Controller\MicroTypeListController",
  *     "form" = {
  *       "add" = "Drupal\micro\Form\MicroTypeFormController",
@@ -29,11 +29,11 @@ use Drupal\Core\Annotation\Translation;
  *   bundle_of = "micro",
  *   entity_keys = {
  *     "id" = "id",
- *     "label" = "label",
+ *     "label" = "name",
  *     "uuid" = "uuid"
  *   },
  *   links = {
- *     "edit-form" = "micro.type_edit"
+ *     "edit-form" = "entity.micro.admin_form"
  *   }
  * )
  */
@@ -54,11 +54,11 @@ class MicroType extends ConfigEntityBase {
   public $uuid;
 
   /**
-   * The bundle label.
+   * The bundle name.
    *
    * @var string
    */
-  public $label;
+  public $name;
 
   /**
    * Implements Drupal\Core\Entity\EntityInterface::id().

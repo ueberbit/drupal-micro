@@ -2,16 +2,16 @@
 
 /**
  * @file
- * Contains \Drupal\micro\MicroEntityAccessController.
+ * Contains \Drupal\micro\MicroEntityAccessControlHandler.
  */
 
 namespace Drupal\micro;
 
-use Drupal\Core\Entity\EntityAccessController;
+use Drupal\Core\Entity\EntityAccessControlHandler;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Session\AccountInterface;
 
-class MicroEntityAccessController extends EntityAccessController {
+class MicroEntityAccessControlHandler extends EntityAccessControlHandler {
 
   /**
    * Performs access checks.
