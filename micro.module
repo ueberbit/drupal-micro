@@ -5,19 +5,6 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Render\Element;
 
 /**
- * Implements hook_entity_bundle_info().
- */
-function micro_entity_bundle_info() {
-  $bundles = array();
-  $config_names = \Drupal::configFactory()->listAll('micro.type.');
-  foreach ($config_names as $config_name) {
-    $config = \Drupal::config($config_name);
-    $bundles['micro'][$config->get('id')]['label'] = $config->get('label');
-  }
-  return $bundles;
-}
-
-/**
  * Entity URI callback.
  *
  * @param \Drupal\Core\Entity\EntityInterface $micro
