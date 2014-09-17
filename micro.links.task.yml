@@ -1,0 +1,8 @@
+entity.micro.canonical:
+  route_name: entity.micro.canonical
+  base_route: entity.micro.canonical
+  title: View
+entity.micro.edit_form:
+  route_name: entity.micro.edit_form
+  base_route: entity.micro.canonical
+  title: Edit
