@@ -95,6 +95,23 @@ class MicroViewsData implements EntityViewsDataInterface {
       ),
     );
 
+    $data['micro_field_data']['langcode'] = array(
+      'title' => t('Translation language'),
+      'help' => t('The language of the micro or translation.'),
+      'field' => array(
+        'id' => 'standard',
+      ),
+      'filter' => array(
+        'id' => 'language',
+      ),
+      'argument' => array(
+        'id' => 'language',
+      ),
+      'sort' => array(
+        'id' => 'standard',
+      ),
+    );
+
     $data['micro_field_data']['changed'] = array(
       'title' => t('Updated date'),
       'help' => t('The date the content was last updated.'),
