@@ -9,8 +9,25 @@ namespace Drupal\micro\Form;
 
 use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Language\LanguageInterface;
 
 class MicroFormController extends ContentEntityForm {
+
+  /**
+   * {@inheritdoc}
+   */
+  public function form(array $form, FormStateInterface $form_state) {
+    $language_configuration = \Drupal::moduleHandler()->invoke('language', 'get_default_configuration', array('micro', $this->entity->bundle()));
+    $form['langcode'] = array(
+      '#title' => t('Language'),
+      '#type' => 'language_select',
+      '#default_value' => $this->entity->getUntranslated()->language()->id,
+      '#languages' => LanguageInterface::STATE_ALL,
+      '#access' => isset($language_configuration['language_show']) && $language_configuration['language_show'],
+    );
+
+    return parent::form($form, $form_state);
+  }
 
   /**
    * {@inheritdoc}
