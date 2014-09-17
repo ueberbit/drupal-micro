@@ -18,6 +18,28 @@ class MicroFormController extends ContentEntityForm {
   public function save(array $form, FormStateInterface $form_state) {
     $micro = $this->entity;
     $micro->save();
+
+    $insert = $micro->isNew();
+
+    $context = array('@type' => $micro->type->value, '%title' => $micro->label());
+    if ($insert) {
+      $this->logger('micro')->notice('@type: added %title.', $context);
+      drupal_set_message(t('@type %title has been created.', $context));
+    }
+    else {
+      $this->logger('micro')->notice('@type: updated %title.', $context);
+      drupal_set_message(t('@type %title has been updated.', $context));
+    }
+
+    if ($micro->id() && $micro->access('view')) {
+      $form_state->setRedirect(
+        'entity.micro.canonical',
+        array('micro' => $micro->id())
+      );
+    }
+    else {
+      $form_state->setRedirect('<front>');
+    }
   }
 
   /**
