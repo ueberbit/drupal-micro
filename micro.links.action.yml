@@ -3,3 +3,9 @@ micro.type_add:
   title: 'Add micro type'
   appears_on:
     - 'micro.type_list'
+
+micro.add_page:
+  route_name: micro.add_page
+  title: 'Add micro'
+  appears_on:
+    - 'view.micro.page_1'
