@@ -12,6 +12,7 @@ use Drupal\Core\Entity\ContentEntityConfirmFormBase;
 use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\UrlGeneratorInterface;
+use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -53,46 +54,7 @@ class MicroDeleteForm extends ContentEntityConfirmFormBase {
    * {@inheritdoc}
    */
   public function getQuestion() {
-    return t('Are you sure you want to delete %title?', array('%title' => $this->entity->label()));
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function actions(array $form, FormStateInterface $form_state) {
-    $actions = parent::actions($form, $form_state);
-
-    // @todo Convert to getCancelRoute() after http://drupal.org/micro/1987778.
-   // $uri = $this->entity->uri();
-   // $actions['cancel']['#href'] = $this->urlGenerator->generateFromPath($uri['path'], $uri['options']);
-
-    return $actions;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getCancelRoute() {
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getConfirmText() {
-    return t('Delete');
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function submitForm(array &$form, FormStateInterface $form_state) {
-    $this->entity->delete();
-    watchdog('content', '@type: deleted %title.', array('@type' => $this->entity->bundle(), '%title' => $this->entity->label()));
-    $micro_type_storage = $this->entityManager->getStorage('micro_type');
-    $micro_type = $micro_type_storage->load($this->entity->bundle())->label();
-    drupal_set_message(t('@type %title has been deleted.', array('@type' => $micro_type, '%title' => $this->entity->label())));
-    Cache::invalidateTags(array('content' => TRUE));
-    $form_state->setRedirect('<front>');
+    return $this->t('Are you sure you want to delete %title?', ['%title' => $this->entity->label()]);
   }
 
   /**
@@ -101,4 +63,25 @@ class MicroDeleteForm extends ContentEntityConfirmFormBase {
   public function getCancelUrl() {
     return new Url('micro.type_list');
   }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getConfirmText() {
+    return $this->t('Delete');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function submit(array $form, FormStateInterface $form_state) {
+    $this->entity->delete();
+    watchdog('content', '@type: deleted %title.', ['@type' => $this->entity->bundle(), '%title' => $this->entity->label()]);
+    $micro_type_storage = $this->entityManager->getStorage('micro_type');
+    $micro_type = $micro_type_storage->load($this->entity->bundle())->label();
+    drupal_set_message($this->t('@type %title has been deleted.', ['@type' => $micro_type, '%title' => $this->entity->label()]));
+    Cache::invalidateTags(['content' => TRUE]);
+    $form_state->setRedirect('<front>');
+  }
+
 }
