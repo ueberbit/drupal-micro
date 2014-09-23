@@ -23,7 +23,7 @@ use Drupal\Core\Language\LanguageInterface;
  *   bundle_label = @Translation("Micro type"),
  *   module = "micro",
  *   handlers = {
- *     "storage" = "\Drupal\Core\Entity\ContentEntityDatabaseStorage",
+ *     "storage" = "\Drupal\Core\Entity\Sql\SqlContentEntityStorage",
  *     "form" = {
  *       "default" = "Drupal\micro\Form\MicroFormController",
  *       "add" = "Drupal\micro\Form\MicroFormController",
