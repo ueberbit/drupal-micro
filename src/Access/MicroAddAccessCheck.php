@@ -7,6 +7,7 @@
 
 namespace Drupal\micro\Access;
 
+use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Routing\Access\AccessInterface;
 use Drupal\Core\Session\AccountInterface;
@@ -47,10 +48,10 @@ class MicroAddAccessCheck implements AccessInterface {
     foreach ($this->entityManager->getBundleInfo('micro') as $bundle => $info) {
       if ($access_controller->createAccess($bundle, $account)) {
         // Allow access if at least one type is permitted.
-        return static::ALLOW;
+        return AccessResult::allowed();
       }
     }
-    return static::DENY;
+    return AccessResult::forbidden();
   }
 
 }
