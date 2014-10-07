@@ -10,6 +10,7 @@ namespace Drupal\micro\Form;
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Component\Utility\String;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
 
 class MicroTypeFormController extends EntityForm {
 
@@ -94,7 +95,7 @@ class MicroTypeFormController extends EntityForm {
       watchdog('micro', 'Added micro type %name.', $t_args, WATCHDOG_NOTICE, l($this->t('view'), 'admin/structure/micro'));
     }
 
-    $form_state->setRedirectUrl(new \Drupal\Core\Url('micro.type_list'));
+    $form_state->setRedirectUrl(new Url('micro.type_list'));
   }
 
 
