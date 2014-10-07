@@ -162,8 +162,8 @@ class Micro extends ContentEntityBase {
   /**
    * {@inheritdoc}
    */
-  protected static function invalidateTagsOnDelete(array $entities) {
-    parent::invalidateTagsOnDelete($entities);
+  protected static function invalidateTagsOnDelete(EntityTypeInterface $entity_type, array $entities) {
+    parent::invalidateTagsOnDelete($entity_type, $entities);
     static::doInvalideCache();
   }
 
