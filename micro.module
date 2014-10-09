@@ -3,6 +3,7 @@
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Render\Element;
+use Drupal\Core\Url;
 
 /**
  * Entity URI callback.
@@ -153,7 +154,7 @@ function template_preprocess_micro_add_list(&$variables) {
     foreach ($variables['micro'] as $type) {
       $variables['types'][$type->type] = array(
         'type' => $type->type,
-        'add_link' => \Drupal::l($type->name, 'micro.add', ['micro_type' => $type->type]),
+        'add_link' => \Drupal::l($type->name, Url::fromRoute('micro.add', ['micro_type' => $type->type])),
       );
     }
   }
