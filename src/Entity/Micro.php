@@ -159,27 +159,4 @@ class Micro extends ContentEntityBase {
     return $this->changed->value;
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  protected static function invalidateTagsOnDelete(EntityTypeInterface $entity_type, array $entities) {
-    parent::invalidateTagsOnDelete($entity_type, $entities);
-    static::doInvalideCache();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function invalidateTagsOnSave($update) {
-    parent::invalidateTagsOnSave($update);
-    static::doInvalideCache();
-  }
-
-  /**
-   * @todo Replace this with proper cache tags.
-   */
-  protected static function doInvalideCache() {
-    // Cache::invalidateTags(array('content' => TRUE));
-  }
-
 }
