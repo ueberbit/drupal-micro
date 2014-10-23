@@ -1,0 +1,10 @@
+administer micro types:
+  title: 'Administer micro types'
+  description: 'View, edit and delete all micro types.'
+
+administer micro content:
+  title: 'Administer micro content'
+  description: 'View, edit and delete all micro content.'
+
+permission_callbacks:
+  - Drupal\micro\MicroPermissions::permissions
