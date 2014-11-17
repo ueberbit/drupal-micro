@@ -23,7 +23,6 @@ use Drupal\Core\Language\LanguageInterface;
  *   bundle_label = @Translation("Micro type"),
  *   module = "micro",
  *   handlers = {
- *     "storage" = "\Drupal\Core\Entity\Sql\SqlContentEntityStorage",
  *     "form" = {
  *       "default" = "Drupal\micro\Form\MicroFormController",
  *       "add" = "Drupal\micro\Form\MicroFormController",
@@ -38,7 +37,6 @@ use Drupal\Core\Language\LanguageInterface;
  *   base_table = "micro",
  *   data_table = "micro_field_data",
  *   uri_callback = "micro_uri",
- *   fieldable = TRUE,
  *   translatable = TRUE,
  *   render_cache = FALSE,
  *   entity_keys = {
@@ -118,7 +116,7 @@ class Micro extends ContentEntityBase {
         'weight' => -5,
       ))
       ->setDisplayOptions('form', array(
-        'type' => 'string',
+        'type' => 'string_textfield',
         'weight' => -5,
       ))
       ->setDisplayConfigurable('form', TRUE);
