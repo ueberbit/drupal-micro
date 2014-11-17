@@ -74,13 +74,12 @@ class MicroDeleteForm extends ContentEntityConfirmFormBase {
   /**
    * {@inheritdoc}
    */
-  public function submit(array $form, FormStateInterface $form_state) {
+  public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->entity->delete();
-    watchdog('content', '@type: deleted %title.', ['@type' => $this->entity->bundle(), '%title' => $this->entity->label()]);
+    $this->logger('micro')->notice('@type: deleted %title.', ['@type' => $this->entity->bundle(), '%title' => $this->entity->label()]);
     $micro_type_storage = $this->entityManager->getStorage('micro_type');
     $micro_type = $micro_type_storage->load($this->entity->bundle())->label();
     drupal_set_message($this->t('@type %title has been deleted.', ['@type' => $micro_type, '%title' => $this->entity->label()]));
-    Cache::invalidateTags(['content' => TRUE]);
     $form_state->setRedirect('<front>');
   }
 

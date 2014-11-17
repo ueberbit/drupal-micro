@@ -92,11 +92,11 @@ class MicroTypeFormController extends EntityForm {
     }
     elseif ($status == SAVED_NEW) {
       drupal_set_message(t('The micro type %name has been added.', $t_args));
-      watchdog('micro', 'Added micro type %name.', $t_args, WATCHDOG_NOTICE, l($this->t('view'), 'admin/structure/micro'));
+      $this->logger('micro')->notice('Added micro type %name.', $t_args);
     }
 
     $form_state->setRedirectUrl(new Url('micro.type_list'));
   }
 
 
-} 
+}
