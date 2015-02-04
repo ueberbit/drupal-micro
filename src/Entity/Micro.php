@@ -43,6 +43,7 @@ use Drupal\Core\Language\LanguageInterface;
  *     "id" = "mid",
  *     "label" = "title",
  *     "bundle" = "type",
+ *     "langcode" = "langcode",
  *     "uuid" = "uuid"
  *   },
  *   bundle_keys = {
