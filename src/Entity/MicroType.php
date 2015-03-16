@@ -33,7 +33,7 @@ use Drupal\Core\Annotation\Translation;
  *     "uuid" = "uuid"
  *   },
  *   links = {
- *     "edit-form" = "entity.micro.admin_form"
+ *     "edit-form" = "/admin/structure/micro/manage/{micro_type}"
  *   }
  * )
  */
