@@ -53,10 +53,9 @@ use Drupal\Core\Language\LanguageInterface;
  *   permission_granularity = "bundle",
  *   field_ui_base_route = "entity.micro.admin_form",
  *   links = {
- *     "canonical" = "entity.micro.canonical",
- *     "edit-form" = "entity.micro.edit_form",
- *     "delete-form" = "entity.micro.delete_form",
- *     "admin-form" = "entity.micro.admin_form"
+ *     "canonical" = "/micro/{micro}",
+ *     "edit-form" = "/micro/{micro}/edit"
+ *     "delete-form" = "/micro/{micro}/delete",
  *   }
  * )
  */
