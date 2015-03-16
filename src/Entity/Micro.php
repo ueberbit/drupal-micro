@@ -54,8 +54,8 @@ use Drupal\Core\Language\LanguageInterface;
  *   field_ui_base_route = "entity.micro.admin_form",
  *   links = {
  *     "canonical" = "/micro/{micro}",
- *     "edit-form" = "/micro/{micro}/edit"
- *     "delete-form" = "/micro/{micro}/delete",
+ *     "edit-form" = "/micro/{micro}/edit",
+ *     "delete-form" = "/micro/{micro}/delete"
  *   }
  * )
  */
