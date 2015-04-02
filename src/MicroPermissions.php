@@ -24,7 +24,7 @@ class MicroPermissions {
 
     $bundles = \Drupal::entityManager()->getBundleInfo('micro');
     foreach ($bundles as $bundle => $bundle_info) {
-      $permissions['access micro admin overview, Type: ' . $bundle] = array(
+      $permissions['access micro admin overview - type ' . $bundle] = array(
         'title' => $this->t('Access micro admin overview - Type: @type', array('@type' => $bundle_info['label'])),
       );
 
