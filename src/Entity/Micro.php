@@ -121,8 +121,7 @@ class Micro extends ContentEntityBase {
       ))
       ->setDisplayConfigurable('form', TRUE);
 
-
-    $fields['changed'] = BaseFieldDefinition::create('integer')
+    $fields['changed'] = BaseFieldDefinition::create('changed')
       ->setLabel(t('Changed'))
       ->setDescription(t('The time that the micro entity was last edited.'))
       ->setPropertyConstraints('value', array('EntityChanged' => array()));
