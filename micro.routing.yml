@@ -13,7 +13,7 @@ micro.type_add:
   requirements:
     _permission: 'administer micro types'
 
-entity.micro.admin_form:
+entity.micro_type.edit_form:
   path: '/admin/structure/micro/manage/{micro_type}'
   defaults:
     _entity_form: 'micro_type.edit'
