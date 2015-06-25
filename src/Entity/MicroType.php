@@ -25,6 +25,7 @@ use Drupal\Core\Annotation\Translation;
  *     },
  *    "list_builder" = "Drupal\micro\MicroTypeListBuilder"
  *   },
+ *   admin_permission = "administer micro types",
  *   config_prefix = "type",
  *   bundle_of = "micro",
  *   entity_keys = {

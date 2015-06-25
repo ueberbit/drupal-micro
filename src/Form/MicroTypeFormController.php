@@ -8,7 +8,7 @@
 namespace Drupal\micro\Form;
 
 use Drupal\Core\Entity\EntityForm;
-use Drupal\Component\Utility\String;
+use Drupal\Component\Utility\SafeMarkup;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 
@@ -22,7 +22,7 @@ class MicroTypeFormController extends EntityForm {
 
     $type = $this->entity;
     if ($this->operation == 'add') {
-      $form['#title'] = String::checkPlain($this->t('Add micro type'));
+      $form['#title'] = SafeMarkup::checkPlain($this->t('Add micro type'));
     }
     elseif ($this->operation == 'edit') {
       $form['#title'] = $this->t('Edit %label micro type', array('%label' => $type->label()));

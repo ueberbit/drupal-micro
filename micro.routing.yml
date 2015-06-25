@@ -18,9 +18,9 @@ entity.micro_type.edit_form:
   defaults:
     _entity_form: 'micro_type.edit'
   requirements:
-    _permission: 'administer micro types'
+    _entity_access: 'micro_type.update'
 
-micro.type_delete_confirm:
+entity.micro_type.delete_form:
   path: '/admin/structure/micro/manage/{micro_type}/delete'
   defaults:
     _entity_form: 'micro_type.delete'
