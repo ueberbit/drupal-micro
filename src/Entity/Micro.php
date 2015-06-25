@@ -51,7 +51,7 @@ use Drupal\Core\Language\LanguageInterface;
  *   },
  *   bundle_entity_type = "micro_type",
  *   permission_granularity = "bundle",
- *   field_ui_base_route = "entity.micro.admin_form",
+ *   field_ui_base_route = "entity.micro_type.edit_form",
  *   links = {
  *     "canonical" = "/micro/{micro}",
  *     "edit-form" = "/micro/{micro}/edit",

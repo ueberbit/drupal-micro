@@ -33,7 +33,9 @@ use Drupal\Core\Annotation\Translation;
  *     "uuid" = "uuid"
  *   },
  *   links = {
- *     "edit-form" = "/admin/structure/micro/manage/{micro_type}"
+ *     "edit-form" = "/admin/structure/micro/manage/{micro_type}",
+ *     "delete-form" = "/admin/structure/micro/manage/{micro_type}/delete",
+ *     "collection" = "/admin/structure/micro"
  *   }
  * )
  */
