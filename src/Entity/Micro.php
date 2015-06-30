@@ -9,6 +9,7 @@ namespace Drupal\micro\Entity;
 
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Entity\ContentEntityBase;
+use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
@@ -61,22 +62,7 @@ use Drupal\Core\Language\LanguageInterface;
  */
 class Micro extends ContentEntityBase {
 
-  /**
-   * {@inheritdoc}
-   */
-  public function preSave(EntityStorageInterface $storage_controller) {
-    parent::preSave($storage_controller);
-
-    // Before saving the micro entity, set changed time.
-    $this->changed->value = REQUEST_TIME;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function postSave(EntityStorageInterface $storage_controller, $update = TRUE) {
-    parent::postSave($storage_controller, $update);
-  }
+  use EntityChangedTrait;
 
   /**
    * {@inheritdoc}
@@ -123,8 +109,9 @@ class Micro extends ContentEntityBase {
 
     $fields['changed'] = BaseFieldDefinition::create('changed')
       ->setLabel(t('Changed'))
-      ->setDescription(t('The time that the micro entity was last edited.'))
-      ->setPropertyConstraints('value', array('EntityChanged' => array()));
+      ->setDescription(t('The time that the micro was last edited.'))
+      ->setRevisionable(TRUE)
+      ->setTranslatable(TRUE);
 
     return $fields;
   }
@@ -153,7 +140,7 @@ class Micro extends ContentEntityBase {
    * {@inheritdoc}
    */
   public function getChangedTime() {
-    return $this->changed->value;
+    return $this->get('changed')->value;
   }
 
 }
