@@ -22,7 +22,6 @@ use Drupal\Core\Language\LanguageInterface;
  *   id = "micro",
  *   label = @Translation("Micro"),
  *   bundle_label = @Translation("Micro type"),
- *   module = "micro",
  *   handlers = {
  *     "form" = {
  *       "default" = "Drupal\micro\Form\MicroFormController",
