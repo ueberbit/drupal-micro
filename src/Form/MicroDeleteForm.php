@@ -61,7 +61,7 @@ class MicroDeleteForm extends ContentEntityConfirmFormBase {
    * {@inheritdoc}
    */
   public function getCancelUrl() {
-    return new Url('micro.type_list');
+    return new Url('entity.micro_type.collection');
   }
 
   /**
