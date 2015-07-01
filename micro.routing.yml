@@ -64,3 +64,12 @@ entity.micro.delete_form:
     _entity_form: 'micro.delete'
   requirements:
     _permission: 'administer micro content'
+
+entity.micro_type.collection:
+  path: '/admin/structure/types'
+  defaults:
+    _controller: '\Drupal\Core\Entity\Controller\EntityListController::listing'
+    entity_type: 'node_type'
+    _title: 'Content types'
+  requirements:
+    _permission: 'administer content types'
