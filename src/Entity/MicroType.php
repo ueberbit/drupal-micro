@@ -21,7 +21,7 @@ use Drupal\Core\Annotation\Translation;
  *     "form" = {
  *       "add" = "Drupal\micro\Form\MicroTypeFormController",
  *       "edit" = "Drupal\micro\Form\MicroTypeFormController",
- *       "delete" = "Drupal\node\Form\NodeTypeDeleteConfirm"
+ *       "delete" = "Drupal\micro\Form\MicroTypeDeleteConfirm"
  *     },
  *    "list_builder" = "Drupal\micro\MicroTypeListBuilder"
  *   },

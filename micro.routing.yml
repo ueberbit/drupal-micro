@@ -69,7 +69,7 @@ entity.micro_type.collection:
   path: '/admin/structure/types'
   defaults:
     _controller: '\Drupal\Core\Entity\Controller\EntityListController::listing'
-    entity_type: 'node_type'
+    entity_type: 'micro_type'
     _title: 'Content types'
   requirements:
-    _permission: 'administer content types'
+    _permission: 'administer micro types'
