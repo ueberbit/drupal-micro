@@ -6,21 +6,6 @@ use Drupal\Core\Render\Element;
 use Drupal\Core\Url;
 
 /**
- * Entity URI callback.
- *
- * @param \Drupal\Core\Entity\EntityInterface $micro
- *   A micro entity.
- *
- * @return array
- *   An array with 'path' as the key and the path to the micro as its value.
- */
-function micro_uri(EntityInterface $micro) {
-  return array(
-    'path' => 'micro/' . $micro->id(),
-  );
-}
-
-/**
  * Implements hook_permission().
  */
 function micro_permission() {

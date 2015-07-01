@@ -37,7 +37,6 @@ use Drupal\Core\Language\LanguageInterface;
  *   admin_permission = "administer micro entity",
  *   base_table = "micro",
  *   data_table = "micro_field_data",
- *   uri_callback = "micro_uri",
  *   translatable = TRUE,
  *   render_cache = FALSE,
  *   entity_keys = {
