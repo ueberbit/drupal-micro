@@ -45,9 +45,6 @@ use Drupal\Core\Language\LanguageInterface;
  *     "langcode" = "langcode",
  *     "uuid" = "uuid"
  *   },
- *   bundle_keys = {
- *     "bundle" = "type"
- *   },
  *   bundle_entity_type = "micro_type",
  *   permission_granularity = "bundle",
  *   field_ui_base_route = "entity.micro_type.edit_form",
@@ -111,19 +108,6 @@ class Micro extends ContentEntityBase {
       ->setRevisionable(TRUE)
       ->setTranslatable(TRUE);
 
-    return $fields;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function bundleFieldDefinitions(EntityTypeInterface $entity_type, $bundle, array $base_field_definitions) {
-    $micro_type = MicroType::load($bundle);
-    $fields = array();
-    if (isset($micro_type->title_label)) {
-      $fields['title'] = clone $base_field_definitions['title'];
-      $fields['title']->setLabel($micro_type->title_label);
-    }
     return $fields;
   }
 
