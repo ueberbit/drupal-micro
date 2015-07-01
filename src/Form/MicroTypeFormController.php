@@ -95,7 +95,7 @@ class MicroTypeFormController extends EntityForm {
       $this->logger('micro')->notice('Added micro type %name.', $t_args);
     }
 
-    $form_state->setRedirectUrl(new Url('micro.type_list'));
+    $form_state->setRedirectUrl(new Url('entity.micro_type.collection'));
   }
 
 
