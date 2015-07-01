@@ -13,7 +13,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides a form for content type deletion.
+ * Provides a form for micro type deletion.
  */
 class MicroTypeDeleteConfirm extends EntityDeleteForm {
 
@@ -52,7 +52,7 @@ class MicroTypeDeleteConfirm extends EntityDeleteForm {
       ->count()
       ->execute();
     if ($num_micros) {
-      $caption = '<p>' . $this->formatPlural($num_micros, '%type is used by 1 piece of content on your site. You can not remove this content type until you have removed all of the %type content.', '%type is used by @count pieces of content on your site. You may not remove %type until you have removed all of the %type content.', array('%type' => $this->entity->label())) . '</p>';
+      $caption = '<p>' . $this->formatPlural($num_micros, '%type is used by 1 piece of content on your site. You can not remove this micro type until you have removed all of the %type content.', '%type is used by @count pieces of content on your site. You may not remove %type until you have removed all of the %type content.', array('%type' => $this->entity->label())) . '</p>';
       $form['#title'] = $this->getQuestion();
       $form['description'] = array('#markup' => $caption);
       return $form;

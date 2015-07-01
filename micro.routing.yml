@@ -70,6 +70,6 @@ entity.micro_type.collection:
   defaults:
     _controller: '\Drupal\Core\Entity\Controller\EntityListController::listing'
     entity_type: 'micro_type'
-    _title: 'Content types'
+    _title: 'Micro types'
   requirements:
     _permission: 'administer micro types'
