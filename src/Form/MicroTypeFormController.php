@@ -61,9 +61,6 @@ class MicroTypeFormController extends EntityForm {
 
     $form['additional_settings'] = array(
       '#type' => 'vertical_tabs',
-      '#attached' => array(
-        'library' => array(array('micro', 'drupal.micro_types')),
-      ),
     );
 
     return $form;
