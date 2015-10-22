@@ -80,8 +80,17 @@ class Micro extends ContentEntityBase {
       ->setReadOnly(TRUE);
 
     $fields['langcode'] = BaseFieldDefinition::create('language')
-      ->setLabel(t('Language code'))
-      ->setDescription(t('The micro language code.'));
+      ->setLabel(t('Language'))
+      ->setDescription(t('The micro language code.'))
+      ->setTranslatable(TRUE)
+      ->setRevisionable(TRUE)
+      ->setDisplayOptions('view', array(
+        'type' => 'hidden',
+      ))
+      ->setDisplayOptions('form', array(
+        'type' => 'language_select',
+        'weight' => 2,
+      ));
 
     $fields['title'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Title'))
